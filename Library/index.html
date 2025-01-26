@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vallejo Public Library</title>
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Vallejo Public Library</h1>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="reserve.html">Reserve</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" id="main-content">
+        <section id="home">
+            <div class="hero">
+                <h2>Welcome to Vallejo Public Library</h2>
+                <p>Your gateway to knowledge and community resources</p>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="card">
+                <h3>Latest News</h3>
+                <ul>
+                    <li>Summer Reading Program starts June 1st</li>
+                    <li>New Computer Lab Opening Next Month</li>
+                    <li>Author Talk Series - Coming Soon</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Lower level content -->
+        <section class="info-section">
+            <div class="card">
+                <h3>Hours & Location</h3>
+                <p>555 Santa Clara Street<br>Vallejo, CA 94590</p>
+                <p>
+                    Monday - Thursday: 9 AM - 8 PM<br>
+                    Friday - Saturday: 9 AM - 5 PM<br>
+                    Sunday: Closed
+                </p>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="card">
+                <h3>Contact Us</h3>
+                <p>Email: info@vallejolibrary.org</p>
+                <p>Phone: (707) 555-0123</p>
+            </div>
+        </section>
+
+        <section class="library-card-form card">
+            <h3>Get Your Library Card</h3>
+            <form id="card-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <button type="submit">Submit Application</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Vallejo Public Library. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
