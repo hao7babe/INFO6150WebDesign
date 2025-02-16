@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vallejo Public Library</title>
-
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="container">
+            <div class="logo-section">
+                <img src="logo.png" alt="Library Logo" class="logo">
+            </div>
             <h1>Vallejo Public Library</h1>
+            <div class="auth-buttons">
+                <button id="login-button">Log In</button>
+                <button id="logout-button" style="display:none;">Log Out</button>
+            </div>
         </div>
     </header>
     
     <nav>
         <div class="container">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="catalog.html">Catalog</a></li>
                 <li><a href="reserve.html">Reserve</a></li>
+                <li><a href="#">Contact Us</a></li>
             </ul>
+            <form class="search-form" action="catalog.html">
+                <input type="text" placeholder="Search for books..." id="search-input">
+                <button type="submit">Search</button>
+            </form>
         </div>
     </nav>
 
@@ -42,8 +55,7 @@
             </div>
         </section>
 
-        <!-- Lower level content -->
-        <section class="info-section">
+        <section class="info-sections-grid">
             <div class="card">
                 <h3>Hours & Location</h3>
                 <p>555 Santa Clara Street<br>Vallejo, CA 94590</p>
@@ -53,9 +65,7 @@
                     Sunday: Closed
                 </p>
             </div>
-        </section>
 
-        <section class="info-section">
             <div class="card">
                 <h3>Contact Us</h3>
                 <p>Email: info@vallejolibrary.org</p>
@@ -68,29 +78,19 @@
             <form id="card-form">
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" required>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" id="address" required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number">
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" required>
+                    <button type="submit">Apply for Card</button>
                 </div>
-                <button type="submit">Submit Application</button>
             </form>
         </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Vallejo Public Library. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
-</html>
+                    
