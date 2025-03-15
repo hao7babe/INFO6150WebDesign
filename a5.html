@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<head>
+  <title>Registration for FREE Pizza!</title>
+  <style>
+    /* PIZZA-THEMED COLOR PALETTE */
+    :root {
+      --dark-tomato: #C0392B;
+      --tomato: #E74C3C;
+      --light-yellow: #F9E79F;
+      --creamy-white: #FFF8E7;
+      --light-gray: #ccc;
+      --white: #fff;
+      --success-green: #27AE60;
+    }
+
+    /* Global Reset */
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(to bottom right, var(--creamy-white), var(--light-yellow));
+    }
+
+    /* Form Container */
+    .form-container {
+      max-width: 550px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Form Title & Description */
+    .form-container h1 {
+      text-align: center;
+      color: var(--dark-tomato);
+      font-size: 1.8rem;
+    }
+
+    .form-container p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    /*  Labels and Inputs */
+    label {
+      display: block;
+      margin: 0.5rem 0 0.3rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--light-gray);
+      border-radius: 4px;
+      transition: 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--tomato);
+      box-shadow: 0 0 5px rgba(231, 76, 60, 0.4);
+      outline: none;
+    }
+
+    /* Checkbox & Radio Groups */
+    .checkbox-group,
+    .radio-group {
+      margin-bottom: 1rem;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 0.4rem;
+    }
+
+    .radio-option {
+      display: block;
+      margin: 0.25rem 0;
+    }
+
+    /* Error and Success Messages */
+    .error-message {
+      color: var(--dark-tomato);
+      font-size: 0.85rem;
+    }
+
+    .success-message {
+      color: var(--success-green);
+      font-weight: bold;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Submit Button */
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      background: var(--tomato);
+      color: var(--white);
+      transition: 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--dark-tomato);
+      transform: translateY(-2px);
+    }
+
+    /* Hidden class */
+    .hidden {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .form-container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Pizza Registration Form</h1>
+        <p>Sign up now to receive a delicious pizza!</p>
+      
+        <!-- Success Message (hidden by default) -->
+        <div id="successMessage" class="success-message hidden">
+          Accepted! Thank you for registering.
+        </div>
+      
+        <form id="pizzaForm">
+          <!-- Name -->
+          <label for="name">Name (at least 3 characters) *</label>
+          <input type="text" id="name" name="name" />
+          <div id="nameError" class="error-message"></div>
+      
+          <!-- Year of Birth (Dropdown) -->
+          <label for="yearOfBirth">Year of Birth (1901 to Current Year - 1) *</label>
+          <select id="yearOfBirth" name="yearOfBirth"></select>
+          <div id="yearOfBirthError" class="error-message"></div>
+      
+          <!-- Checkbox: live in the United States? -->
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="usResident" name="usResident" />
+              Do you live in the United States?
+            </label>
+          </div>
+      
+          <!-- Zipcode (hidden if not US resident) -->
+          <div id="zipcodeField" class="hidden">
+            <label for="zipcode">Zipcode (5-digit number) *</label>
+            <input type="text" id="zipcode" name="zipcode" />
+            <div id="zipcodeError" class="error-message"></div>
+          </div>
+      
+          <!-- Password -->
+          <label for="password">Password (at least 8 characters) *</label>
+          <input type="password" id="password" name="password" />
+          <div id="passwordError" class="error-message"></div>
+      
+          <!-- Pizza preference (radio buttons) -->
+          <div class="radio-group">
+            <legend>Preferred Type of Pizza *</legend>
+            <label class="radio-option">
+              <input type="radio" name="pizzaType" value="withPineapple" />
+              With pineapple
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pizzaType" value="withoutPineapple" />
+              Without pineapple
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pizzaType" value="noPizza" />
+              I do not like pizza
+            </label>
+            <div id="pizzaTypeError" class="error-message"></div>
+            </div>
+      
+          <!-- Submit button -->
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      
+      <script>
+        // --- Populate the Year of Birth dropdown (1901 to currentYear - 1) ---
+        const currentYear = new Date().getFullYear();
+        const yearOfBirthSelect = document.getElementById('yearOfBirth');
+      
+        for (let y = currentYear - 1; y >= 1901; y--) {
+          const option = document.createElement('option');
+          option.value = y;
+          option.textContent = y;
+          yearOfBirthSelect.appendChild(option);
+        }
+      
+        // --- Form validation logic ---
+        const pizzaForm = document.getElementById('pizzaForm');
+        const successMessage = document.getElementById('successMessage');
+      
+        // Form fields
+        const nameInput = document.getElementById('name');
+        const usResidentCheckbox = document.getElementById('usResident');
+        const zipcodeField = document.getElementById('zipcodeField');
+        const zipcodeInput = document.getElementById('zipcode');
+        const passwordInput = document.getElementById('password');
+        const pizzaTypeRadios = document.getElementsByName('pizzaType');
+      
+        // Error message containers
+        const nameError = document.getElementById('nameError');
+        const yearOfBirthError = document.getElementById('yearOfBirthError');
+        const zipcodeError = document.getElementById('zipcodeError');
+        const passwordError = document.getElementById('passwordError');
+        const pizzaTypeError = document.getElementById('pizzaTypeError');
+      
+        // Toggle zipcode display based on checkbox
+        usResidentCheckbox.addEventListener('change', () => {
+          if (usResidentCheckbox.checked) {
+            zipcodeField.classList.remove('hidden');
+          } else {
+            zipcodeField.classList.add('hidden');
+            zipcodeInput.value = '';
+            zipcodeError.textContent = '';
+          }
+        });
+      
+        // Form submission event
+        pizzaForm.addEventListener('submit', (event) => {
+          event.preventDefault(); // Prevent default submission
+      
+          // Reset all error messages
+          let isValid = true;
+          nameError.textContent = '';
+          yearOfBirthError.textContent = '';
+          zipcodeError.textContent = '';
+          passwordError.textContent = '';
+          pizzaTypeError.textContent = '';
+          successMessage.classList.add('hidden');
+      
+          // Validate Name (min 3 characters)
+          const nameValue = nameInput.value.trim();
+          if (nameValue.length < 3) {
+            nameError.textContent = 'Name must be at least 3 characters.';
+            isValid = false;
+          }
+      
+          // Validate Year of Birth (dropdown)
+          const yearValue = parseInt(yearOfBirthSelect.value, 10);
+          if (!yearValue || yearValue < 1901 || yearValue >= currentYear) {
+            yearOfBirthError.textContent = `Year of birth must be between 1901 and ${currentYear - 1}.`;
+            isValid = false;
+          }
+      
+          // Validate Zipcode if US resident is checked
+          if (usResidentCheckbox.checked) {
+            const zipcodeVal = zipcodeInput.value.trim();
+            if (!/^\d{5}$/.test(zipcodeVal)) {
+              zipcodeError.textContent = 'Zipcode must be a 5-digit number.';
+              isValid = false;
+            }
+          }
+      
+          // Validate Password (min length 8)
+          const passwordVal = passwordInput.value;
+          if (passwordVal.length < 8) {
+            passwordError.textContent = 'Password must be at least 8 characters long.';
+            isValid = false;
+          }
+      
+          // Validate Pizza Preference (radio)
+          let pizzaSelected = false;
+          for (let i = 0; i < pizzaTypeRadios.length; i++) {
+            if (pizzaTypeRadios[i].checked) {
+              pizzaSelected = true;
+              break;
+            }
+          }
+          if (!pizzaSelected) {
+            pizzaTypeError.textContent = 'Please select a pizza preference.';
+            isValid = false;
+          }
+      
+          // If valid, show success message
+          if (isValid) {
+            successMessage.classList.remove('hidden');
+            // Optional: reset form after success
+            // pizzaForm.reset();
+          }
+        });
+      </script>
+</body>
