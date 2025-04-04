@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var bodyWords = item.body ? item.body.split(" ") : [];
   
             return {
-              id: "api-" + (i + 1),
+              id: "pet-" + (i + 1),
               name: item.title || "No Name",
               // species: first word of title
               species: titleWords[0] || "Unknown",
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       pets.forEach(function (pet) {
         var li = document.createElement("li");
         li.innerHTML =
-          '<a href="detail.html?id=' + pet.id + '">' + pet.name + "</a>";
+          '<a href="detail.html?id=' + encodeURIComponent(pet.id) + '">' + pet.name + "</a>";
         petList.appendChild(li);
       });
     }

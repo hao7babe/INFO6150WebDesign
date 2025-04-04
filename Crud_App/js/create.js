@@ -14,6 +14,33 @@ document.addEventListener("DOMContentLoaded", function () {
       var breed = document.getElementById("breed").value.trim();
       var favoriteToy = document.getElementById("favoriteToy").value.trim();
   
+      // 输入验证
+      if (!name || !species || !age || !color || !breed || !favoriteToy) {
+        result.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      // 年龄验证
+      var ageNum = parseInt(age);
+      if (isNaN(ageNum) || ageNum < 0) {
+        result.textContent = "Age must be a positive number.";
+        return;
+      }
+
+      // HTML 转义
+      function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      name = escapeHtml(name);
+      species = escapeHtml(species);
+      age = escapeHtml(age);
+      color = escapeHtml(color);
+      breed = escapeHtml(breed);
+      favoriteToy = escapeHtml(favoriteToy);
+  
       fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
         headers: { "Content-type": "application/json" },

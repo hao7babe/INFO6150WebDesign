@@ -4,15 +4,31 @@
 document.addEventListener("DOMContentLoaded", function () {
     var details = document.getElementById("pet-details");
     var id = getParam("id");
+    
+    console.log("Current URL:", window.location.href);
+    console.log("Looking for pet with ID:", id);
+    console.log("Type of ID:", typeof id);
+    
     if (!id) {
       details.textContent = "No pet ID provided.";
       return;
     }
   
     var pets = JSON.parse(localStorage.getItem("pets") || "[]");
-    var pet = pets.find(function (p) { return p.id === id; });
+    console.log("All pets in localStorage:", pets);
+    console.log("Number of pets:", pets.length);
+    
+    var pet = pets.find(function (p) { 
+      console.log("Comparing pet ID:", p.id, "with search ID:", id);
+      console.log("Types - Pet ID:", typeof p.id, "Search ID:", typeof id);
+      return p.id === id; 
+    });
+    
     if (!pet) {
-      details.textContent = "Pet not found in localStorage.";
+      details.innerHTML = 
+        "<p class='error'>Pet not found with ID: " + id + "</p>" +
+        "<p>Available pets in localStorage:</p>" +
+        "<ul>" + pets.map(p => "<li>ID: " + p.id + " (Type: " + typeof p.id + "), Name: " + p.name + "</li>").join("") + "</ul>";
       return;
     }
   
@@ -26,7 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
       "<p><strong>Favorite Toy:</strong> " + pet.favoriteToy + "</p>";
   
     function getParam(key) {
-      return new URLSearchParams(window.location.search).get(key);
+      var params = new URLSearchParams(window.location.search);
+      console.log("All URL parameters:", Array.from(params.entries()));
+      return params.get(key);
     }
   });
   
